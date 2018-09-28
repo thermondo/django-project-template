@@ -19,6 +19,7 @@ class Common(Configuration):
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,7 +80,9 @@ class Common(Configuration):
 
     USE_TZ = True
 
-    STATIC_URL = '/static/'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_ROOT = os.path.join(BASE_DIR, '_static')
+    STATIC_URL = values.Value(default='/static/', environ_prefix='')
 
 
 class Prod(Common):
