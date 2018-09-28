@@ -15,6 +15,7 @@ class Common(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'raven.contrib.django.raven_compat',
     ]
 
     MIDDLEWARE = [
@@ -83,6 +84,13 @@ class Common(Configuration):
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     STATIC_ROOT = os.path.join(BASE_DIR, '_static')
     STATIC_URL = values.Value(default='/static/', environ_prefix='')
+
+    SENTRY_DSN = values.Value(environ_prefix='', default='')
+    HEROKU_RELEASE_VERSION = values.Value(environ_prefix='', default='')
+    RAVEN_CONFIG = {
+        'dsn': SENTRY_DSN,
+        'release': HEROKU_RELEASE_VERSION,
+    }
 
 
 class Prod(Common):
