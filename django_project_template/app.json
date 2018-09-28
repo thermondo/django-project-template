@@ -1,0 +1,45 @@
+{
+  "name": "{{ project_name }}",
+  "stack": "heroku-16",
+  "env": {
+    "DJANGO_SECRET_KEY": {
+      "generator": "secret"
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_PARENT_APP_NAME": {
+      "required": true
+    },
+    "WAITRESS_CHANNEL_TIMEOUT": {
+      "required": true
+    },
+    "WAITRESS_CLEANUP_INTERVAL": {
+      "required": true
+    },
+    "WAITRESS_THREADS": "2",
+    "DISABLE_RELEASE": "1"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "Standard-1X"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-redis:hobby-dev",
+      "as": "CACHE",
+      "options": {
+        "maxmemory": "allkeys-lru"
+      }
+    },
+    "newrelic",
+    "librato",
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    }
+  ]
+}
