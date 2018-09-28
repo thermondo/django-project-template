@@ -20,6 +20,5 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-[{Makefile, makefile, GNUmakefile}]
+[{Makefile, makefile, GNUmakefile, *.sh}]
 indent_style = tab
-indent_size = 8
