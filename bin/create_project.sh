@@ -7,13 +7,13 @@ PROJECT_PATH=""
 
 while [ -z "$PROJECT_NAME" ]
 do
-    echo "Please enter the the new project name:"
+    echo "Please enter the new project name:"
     read -rp ">" PROJECT_NAME
 done
 
 while [ -z "$PROJECT_PATH" ]
 do
-    echo "Please enter the the new project path:"
+    echo "Please enter the new project path:"
     read -rp ">" PROJECT_PATH
 done
 
@@ -21,7 +21,7 @@ read -rp "Your project will be created on this path $PROJECT_PATH, please confir
 echo
 case "$choice" in
   y|Y );;
-  n|N|* ) echo "Schade schade";  exit 0;;
+  n|N|* ) echo "Schade schade!";  exit 0;;
 esac
 
 mkdir -p "$PROJECT_PATH"
