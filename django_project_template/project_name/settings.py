@@ -85,11 +85,10 @@ class Common(Configuration):
     STATIC_ROOT = os.path.join(BASE_DIR, '_static')
     STATIC_URL = values.Value(default='/static/', environ_prefix='')
 
-    SENTRY_DSN = values.Value(environ_prefix='', default='')
-    HEROKU_RELEASE_VERSION = values.Value(environ_prefix='', default='')
     RAVEN_CONFIG = {
-        'dsn': SENTRY_DSN,
-        'release': HEROKU_RELEASE_VERSION,
+        'dsn': values.Value(environ_name='SENTRY_DSN', environ_prefix='', default=''),
+        'release': values.Value(environ_name='HEROKU_RELEASE_VERSION', environ_prefix='',
+                                default=''),
     }
 
 
