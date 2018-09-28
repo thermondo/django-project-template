@@ -1,0 +1,31 @@
+- name: model_mommy recipies
+  pattern: "mommy\\.make\\("
+  hint: Please use mommy.make_recipe instead of mommy.make.
+  filename:
+    - "**/test_*.py"
+    - "conftest.py"
+    - "**/conftest.py"
+- name: the database is lava
+  pattern: "@pytest.fixture.*\\n[ ]*def [^(]+\\([^)]*(db|transactional_db)(, |\\))"
+  hint: Please do not create db fixtures but model_mommy recipies instead.
+  filename:
+    - "*.py"
+- name: No logger in management commands
+  pattern: "(logger|import logging)"
+  hint: "Please write to self.stdout or self.stderr in favor of using a logger."
+  filename:
+    - "*/management/commands/*.py"
+- name: Ambiguous update
+  pattern: "\\.save\\(\\)"
+  hint: "Please specify the \"update_fields\" when saving a model object."
+  filename:
+    - "**/tasks.py"
+- name: Log exceptions
+  pattern: "logger\\.(info|warning|error|exception)\\([^)]*, e(\\)|,)[^)]*\\)"
+  hint: Please use 'exc_info=True' to include an exception in a log.
+- name: Do not use str representation in logs
+  pattern: "logger\\.(info|warning|error|exception)\\(\\n?.*%s"
+  hint: Please use %r over %s in logs if str representation contains private data.
+  filename:
+   - "**/*.py"
+  error: false
