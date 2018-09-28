@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==2.1.1"
 django-configurations = "==2.1"
+waitress = "==1.1.0"
 
 [dev-packages]
 

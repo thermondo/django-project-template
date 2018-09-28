@@ -25,4 +25,4 @@ case "$choice" in
 esac
 
 mkdir -p "$PROJECT_PATH"
-django-admin startproject --template ./django_project_template --extension=py,md,lock,cfg,yml,yaml --name .editorconfig,.gitignore,Pipfile,Procfile,.bandit "$PROJECT_NAME" "$PROJECT_PATH"
+django-admin startproject --template ./django_project_template --extension=py,md,json,sh,lock,cfg,yml,yaml --name .editorconfig,.gitignore,Pipfile,Procfile,.bandit "$PROJECT_NAME" "$PROJECT_PATH"
