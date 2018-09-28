@@ -9,6 +9,7 @@ django-configurations = "==2.1"
 
 [dev-packages]
 pytest = "==3.8.1"
+"flake8" = "==3.5.0"
 
 [requires]
 python_version = "3.6"
