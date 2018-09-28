@@ -88,3 +88,7 @@ class Prod(Common):
 
 class Dev(Common):
     DEBUG = True
+
+
+class Test(Common):
+    DEBUG = True

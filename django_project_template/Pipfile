@@ -8,6 +8,7 @@ django = "==2.1.1"
 django-configurations = "==2.1"
 
 [dev-packages]
+pytest = "==3.8.1"
 
 [requires]
 python_version = "3.6"
