@@ -1,32 +1,16 @@
 import os
-import random
-
-try:
-    random = random.SystemRandom()
-    using_sysrandom = True
-except NotImplementedError:
-    using_sysrandom = False
+import secrets
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
 
-def generate_secret_key():
-    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-
-    if not using_sysrandom:
-        print(
-            'We could not find a secure pseudo-random number generator on your system. '
-            'Please set your SECRET_KEY variable in .env manually.'
-        )
-        return ''
-    return ''.join(random.choice(chars) for _ in range(50))
-
-
-def _create_secret_key(env_path):
+def _create_and_set_local_secret_key():
+    """Generate and set `SECRET_KEY` for development use."""
+    env_path = os.path.join(PROJECT_DIRECTORY, '.env')
     with open(env_path) as f:
         file_ = f.read()
 
-    secret_key = generate_secret_key()
+    secret_key = secrets.token_urlsafe(50)
 
     file_ = file_.replace(
         'DJANGO_SECRET_KEY=',
@@ -38,8 +22,7 @@ def _create_secret_key(env_path):
 
 
 def main():
-    env_path = os.path.join(PROJECT_DIRECTORY, '.env')
-    _create_secret_key(env_path)
+    _create_and_set_local_secret_key()
 
 
 if __name__ == "__main__":
