@@ -29,7 +29,7 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
-    ROOT_URLCONF = '{{ project_name }}.urls'
+    ROOT_URLCONF = '{{ cookiecutter.project_name }}.urls'
 
     TEMPLATES = [
         {
@@ -47,7 +47,7 @@ class Common(Configuration):
         },
     ]
 
-    WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+    WSGI_APPLICATION = '{{ cookiecutter.project_name }}.wsgi.application'
 
     DATABASES = {
         'default': {

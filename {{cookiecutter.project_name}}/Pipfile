@@ -4,10 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==2.1.1"
-django-configurations = "==2.1"
-raven = "==6.9.0"
-whitenoise = "==4.1"
+django = "*"
+django-configurations = "*"
+raven = "*"
+whitenoise = "*"
 
 [dev-packages]
 

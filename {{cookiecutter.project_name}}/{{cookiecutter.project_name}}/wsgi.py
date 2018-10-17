@@ -11,7 +11,7 @@ import os
 from django.conf import settings
 from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{ project_name }}.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{ cookiecutter.project_name }}.settings')
 os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
 
 from configurations.wsgi import get_wsgi_application
