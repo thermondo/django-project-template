@@ -6,19 +6,8 @@ PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
 def _create_and_set_local_secret_key():
     """Generate and set `SECRET_KEY` for development use."""
-    env_path = os.path.join(PROJECT_DIRECTORY, '.env')
-    with open(env_path) as f:
-        file_ = f.read()
-
-    secret_key = secrets.token_urlsafe(50)
-
-    file_ = file_.replace(
-        'DJANGO_SECRET_KEY=',
-        f'DJANGO_SECRET_KEY="{secret_key}"'
-    )
-
-    with open(env_path, 'w') as f:
-        f.write(file_)
+    with open(os.path.join(PROJECT_DIRECTORY, '.env'), 'a') as fs:
+        fs.write(f'DJANGO_SECRET_KEY={secrets.token_urlsafe(50)}\n')
 
 
 def main():
