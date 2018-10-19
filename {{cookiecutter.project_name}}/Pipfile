@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-configurations = "*"
+raven = "*"
+whitenoise = "*"
 
 [dev-packages]
 
