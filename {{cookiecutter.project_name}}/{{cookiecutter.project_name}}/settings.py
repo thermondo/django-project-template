@@ -49,12 +49,11 @@ class Common(Configuration):
 
     WSGI_APPLICATION = '{{ cookiecutter.project_name }}.wsgi.application'
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+    DATABASES = values.DatabaseURLValue(
+        # django-configurations maps this to the caster (which is dj_database_url)
+        default='postgres://localhost/{{ cookiecutter.project_name }}',
+        conn_max_age=500,
+    )
 
     AUTH_PASSWORD_VALIDATORS = [
         {

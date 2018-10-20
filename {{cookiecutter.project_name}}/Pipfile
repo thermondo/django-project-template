@@ -8,6 +8,8 @@ django = "*"
 django-configurations = "*"
 raven = "*"
 whitenoise = "*"
+dj-database-url = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 
