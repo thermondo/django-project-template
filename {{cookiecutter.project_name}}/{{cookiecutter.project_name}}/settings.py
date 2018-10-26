@@ -18,9 +18,12 @@ class Common(Configuration):
         'raven.contrib.django.raven_compat',
     ]
 
-    MIDDLEWARE = [
+    ALWAYS_FIRST_MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
+    ]
+
+    BASE_MIDDLEWARE = [
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -28,6 +31,8 @@ class Common(Configuration):
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
+
+    MIDDLEWARE = ALWAYS_FIRST_MIDDLEWARE + BASE_MIDDLEWARE
 
     ROOT_URLCONF = '{{ cookiecutter.project_name }}.urls'
 
@@ -91,9 +96,14 @@ class Common(Configuration):
     }
 
 
-class Prod(Common):
-    pass
-
-
 class Dev(Common):
     DEBUG = True
+
+    INSTALLED_APPS = Common.INSTALLED_APPS + ['debug_toolbar']
+    MIDDLEWARE = Common.ALWAYS_FIRST_MIDDLEWARE + [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + Common.BASE_MIDDLEWARE
+
+
+class Prod(Common):
+    pass

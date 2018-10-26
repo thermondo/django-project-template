@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 django-configurations = "*"
+django-debug-toolbar = "*"
 raven = "*"
 whitenoise = "*"
 dj-database-url = "*"
