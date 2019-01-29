@@ -13,14 +13,14 @@ dj-database-url = "*"
 "psycopg2-binary" = "*"
 
 [dev-packages]
-pytest = "==3.8.1"
-pytest-django = "==3.4.3"
-"flake8" = "==3.5.0"
-coverage = "==4.5.1"
-pre-commit = "==1.11.1"
-isort = "==4.3.4"
-pydocstyle = "==2.1.1"
-relint = "==0.3.0"
+pytest = "*"
+pytest-django = "*"
+"flake8" = "*"
+coverage = "*"
+pre-commit = "*"
+isort = "*"
+pydocstyle = "*"
+relint = "*"
 
 [requires]
 python_version = "3.6"
