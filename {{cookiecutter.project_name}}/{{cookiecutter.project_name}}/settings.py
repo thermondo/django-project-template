@@ -16,10 +16,15 @@ class Common(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'raven.contrib.django.raven_compat',
     ]
 
-    MIDDLEWARE = [
+    ALWAYS_FIRST_MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+    ]
+
+    BASE_MIDDLEWARE = [
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -28,7 +33,9 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
-    ROOT_URLCONF = '{{ project_name }}.urls'
+    MIDDLEWARE = ALWAYS_FIRST_MIDDLEWARE + BASE_MIDDLEWARE
+
+    ROOT_URLCONF = '{{ cookiecutter.project_name }}.urls'
 
     TEMPLATES = [
         {
@@ -46,14 +53,13 @@ class Common(Configuration):
         },
     ]
 
-    WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+    WSGI_APPLICATION = '{{ cookiecutter.project_name }}.wsgi.application'
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+    DATABASES = values.DatabaseURLValue(
+        # django-configurations maps this to the caster (which is dj_database_url)
+        default='postgres://localhost/{{ cookiecutter.project_name }}',
+        conn_max_age=500,
+    )
 
     AUTH_PASSWORD_VALIDATORS = [
         {
@@ -80,16 +86,29 @@ class Common(Configuration):
 
     USE_TZ = True
 
-    STATIC_URL = '/static/'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_ROOT = os.path.join(BASE_DIR, '_static')
+    STATIC_URL = values.Value(default='/static/', environ_prefix='')
 
-
-class Prod(Common):
-    pass
+    RAVEN_CONFIG = {
+        'dsn': values.Value(environ_name='SENTRY_DSN', environ_prefix='', default=''),
+        'release': values.Value(environ_name='HEROKU_RELEASE_VERSION', environ_prefix='',
+                                default=''),
+    }
 
 
 class Dev(Common):
     DEBUG = True
 
+    INSTALLED_APPS = Common.INSTALLED_APPS + ['debug_toolbar']
+    MIDDLEWARE = Common.ALWAYS_FIRST_MIDDLEWARE + [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + Common.BASE_MIDDLEWARE
+
 
 class Test(Common):
     DEBUG = True
+
+
+class Prod(Common):
+    pass

@@ -4,8 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==2.1.1"
-django-configurations = "==2.1"
+django = "*"
+django-configurations = "*"
+django-debug-toolbar = "*"
+raven = "*"
+whitenoise = "*"
+dj-database-url = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 pytest = "==3.8.1"
