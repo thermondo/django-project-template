@@ -1,4 +1,5 @@
 import os
+
 from configurations import Configuration, values
 
 
@@ -103,6 +104,10 @@ class Dev(Common):
     MIDDLEWARE = Common.ALWAYS_FIRST_MIDDLEWARE + [
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     ] + Common.BASE_MIDDLEWARE
+
+
+class Test(Common):
+    DEBUG = True
 
 
 class Prod(Common):
